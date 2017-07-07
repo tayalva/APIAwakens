@@ -12,6 +12,10 @@
 		A63403351F0D657C00D837CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63403331F0D657C00D837CC /* Main.storyboard */; };
 		A63403371F0D657C00D837CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A63403361F0D657C00D837CC /* Assets.xcassets */; };
 		A634033A1F0D657C00D837CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63403381F0D657C00D837CC /* LaunchScreen.storyboard */; };
+		A63403421F0D6AF100D837CC /* People.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63403411F0D6AF100D837CC /* People.swift */; };
+		A63403441F0D6AFC00D837CC /* Vehicles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63403431F0D6AFC00D837CC /* Vehicles.swift */; };
+		A63403461F0D6B1500D837CC /* Starships.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63403451F0D6B1500D837CC /* Starships.swift */; };
+		A63403491F0EA39900D837CC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63403481F0EA39900D837CC /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		A63403361F0D657C00D837CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A63403391F0D657C00D837CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A634033B1F0D657C00D837CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A63403411F0D6AF100D837CC /* People.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = People.swift; path = ../People.swift; sourceTree = "<group>"; };
+		A63403431F0D6AFC00D837CC /* Vehicles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vehicles.swift; path = ../Vehicles.swift; sourceTree = "<group>"; };
+		A63403451F0D6B1500D837CC /* Starships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Starships.swift; path = ../Starships.swift; sourceTree = "<group>"; };
+		A63403481F0EA39900D837CC /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +62,26 @@
 		A634032E1F0D657C00D837CC /* API Awakens */ = {
 			isa = PBXGroup;
 			children = (
+				A63403471F0D6B2C00D837CC /* Data Models */,
 				A634032F1F0D657C00D837CC /* AppDelegate.swift */,
 				A63403311F0D657C00D837CC /* ViewController.swift */,
 				A63403331F0D657C00D837CC /* Main.storyboard */,
+				A63403481F0EA39900D837CC /* NetworkManager.swift */,
 				A63403361F0D657C00D837CC /* Assets.xcassets */,
 				A63403381F0D657C00D837CC /* LaunchScreen.storyboard */,
 				A634033B1F0D657C00D837CC /* Info.plist */,
 			);
 			path = "API Awakens";
+			sourceTree = "<group>";
+		};
+		A63403471F0D6B2C00D837CC /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				A63403411F0D6AF100D837CC /* People.swift */,
+				A63403431F0D6AFC00D837CC /* Vehicles.swift */,
+				A63403451F0D6B1500D837CC /* Starships.swift */,
+			);
+			name = "Data Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +157,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A63403491F0EA39900D837CC /* NetworkManager.swift in Sources */,
+				A63403441F0D6AFC00D837CC /* Vehicles.swift in Sources */,
 				A63403321F0D657C00D837CC /* ViewController.swift in Sources */,
+				A63403461F0D6B1500D837CC /* Starships.swift in Sources */,
+				A63403421F0D6AF100D837CC /* People.swift in Sources */,
 				A63403301F0D657C00D837CC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
