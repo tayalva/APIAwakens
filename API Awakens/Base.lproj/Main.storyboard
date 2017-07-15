@@ -23,11 +23,15 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFP-AI-yqo">
                                 <rect key="frame" x="117" y="50" width="140" height="140"/>
+                                <accessibility key="accessibilityConfiguration" identifier="charactersButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="OYc-pJ-Wot"/>
                                     <constraint firstAttribute="height" constant="140" id="fHf-NZ-gqS"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon-characters-1"/>
+                                <connections>
+                                    <action selector="CategoryButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qLJ-uS-Fak"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU9-lV-l13">
                                 <rect key="frame" x="135" y="192" width="104" height="24"/>
@@ -41,13 +45,17 @@
                                 <color key="textColor" red="0.4763126969" green="0.8089286685" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGD-Sy-Ujf">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGD-Sy-Ujf">
                                 <rect key="frame" x="117" y="456" width="140" height="140"/>
+                                <accessibility key="accessibilityConfiguration" identifier="starshipsButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="7xa-MN-zFi"/>
                                     <constraint firstAttribute="height" constant="140" id="JT3-9g-g2t"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon-starship-1"/>
+                                <connections>
+                                    <action selector="CategoryButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YLb-LR-xvl"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starships" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q91-oa-HUh">
                                 <rect key="frame" x="143" y="598" width="89" height="24"/>
@@ -55,13 +63,17 @@
                                 <color key="textColor" red="0.4763126969" green="0.8089286685" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2We-oG-wGu">
+                            <button opaque="NO" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2We-oG-wGu">
                                 <rect key="frame" x="117" y="253" width="140" height="140"/>
+                                <accessibility key="accessibilityConfiguration" identifier="vehiclesButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="4vG-oY-gcb"/>
                                     <constraint firstAttribute="height" constant="140" id="oDI-Oz-CUN"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon-vehicle-1"/>
+                                <connections>
+                                    <action selector="CategoryButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5E7-ge-iaS"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.10523625463247299" green="0.12526398897171021" blue="0.14195245504379272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -96,48 +108,18 @@
                     <view key="view" contentMode="scaleToFill" id="wWa-pM-e76">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0tY-0i-Goe">
+                                <rect key="frame" x="0.0" y="335" width="375" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suk-Ld-Zfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884" y="-342"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="H1I-3Z-OON">
-            <objects>
-                <viewController id="Kqj-up-nK3" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="b8j-co-PsC"/>
-                        <viewControllerLayoutGuide type="bottom" id="QLI-Cj-PAh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Qix-JU-ajP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Iz4-US-xU6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="884" y="325"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="n4i-k9-ldN">
-            <objects>
-                <viewController id="5vn-U5-9hv" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zwi-T6-6cG"/>
-                        <viewControllerLayoutGuide type="bottom" id="j5x-ew-Nws"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="35w-bL-gXm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DyE-jw-N5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="884" y="987"/>
+            <point key="canvasLocation" x="786" y="139"/>
         </scene>
     </scenes>
     <resources>

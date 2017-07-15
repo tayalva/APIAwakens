@@ -12,7 +12,7 @@ import Foundation
 
 struct Person {
     
-  
+    let name: String
     let birthdate: String
     let home: String
     let height: String
@@ -21,7 +21,7 @@ struct Person {
   
     
     struct Key {
-        
+        static let name = "name"
         static let birthdate = "birth_year"
         static let home = "homeworld"
         static let height = "height"
@@ -33,16 +33,17 @@ struct Person {
         
        
         
-        guard let birthdate = json[Key.birthdate] as? String, let home = json[Key.home] as? String, let height = json[Key.height] as? String, let eyeColor = json[Key.eyeColor] as? String, let hairColor = json[Key.hairColor] as? String else {
+        guard let name = json[Key.name] as? String, let birthdate = json[Key.birthdate] as? String, let home = json[Key.home] as? String, let height = json[Key.height] as? String, let eyeColor = json[Key.eyeColor] as? String, let hairColor = json[Key.hairColor] as? String else {
             
             print("not working!")
             return nil }
         
-        
+        self.name = name
         self.birthdate = birthdate
         self.home = home
         self.height = height
         self.eyeColor = eyeColor
         self.hairColor = hairColor
+        
     }
 }

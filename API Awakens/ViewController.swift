@@ -9,26 +9,56 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+  
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let fetchData = NetworkManager()
+        print(selectedCategory)
         
        
-        fetchData.fetchData { (fetchedInfo) in
-            
-            print(fetchedInfo)
-        }
+     
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func CategoryButtons(_ sender: UIButton) {
+        
+        
+        switch sender.tag {
+            
+        case 0:
+            selectedCategory = .people
+          
+            
+        case 1:
+            
+            selectedCategory = .vehicles
+        
+        case 2:
+            selectedCategory = .starships
+            
+        default: return
+        }
+        
+        networkCall()
+
+        
     }
     
+    
+    func networkCall() {
+        
+        let networkCall = NetworkManager()
+        
+        networkCall.fetchData { (fetchedInfo) in
+            
+            print(fetchedInfo)
+            
+        }
+    }
+
 
 
 

@@ -10,42 +10,49 @@ import Foundation
 
 
 class NetworkManager {
-  
     
-    let url = URL(string: "http://swapi.co/api/people/")!
     
-    func fetchData(completion: @escaping ([Person]) -> Void) {
+    var url: URL {
+        
+        switch selectedCategory {
+            
+        case .people: return URL(string: "http://swapi.co/api/people/")!
+        case .starships: return URL(string: "http://swapi.co/api/starships/")!
+        case .vehicles: return URL(string: "http://swapi.co/api/vehicles/")!
+            
+        }
+    }
+
+    func fetchData(completion: @escaping ([Any]) -> Void) {
+        print(url)
     let task = URLSession.shared.dataTask(with: url) { (data,
         response, error) in
         
-        guard let data = data else {
-            
-            print("no data!")
-        return
+        guard let data = data,
+            let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
+            let json = rawJSON as? [String: AnyObject] else {
+                print("error!")
+                return
         }
-        
-        
-        
-        
-        
-        guard let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []) else {
-            
-            print("json serialization failure")
-        return
-        }
-        guard let json = rawJSON as? [String: AnyObject] else {
-            
-            
-            print("error 3")
-            
-            return
-        }
-        
         guard let results = json["results"] as? [[String: Any]] else { fatalError() }
         
+        switch selectedCategory {
+            
+        case .people:
         let people = results.flatMap { Person(json: $0) }
-        
-    completion(people)
+            completion(people)
+            
+        case .starships:
+            
+            let starships = results.flatMap { Starship(json: $0) }
+            completion(starships)
+            
+        case .vehicles:
+            
+            let vehicles = results.flatMap { Vehicle(json: $0) }
+            completion(vehicles)
+            
+        }
         
     }
 
