@@ -77,6 +77,7 @@
                                 <state key="normal" backgroundImage="icon-starship-1"/>
                                 <connections>
                                     <action selector="CategoryButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YLb-LR-xvl"/>
+                                    <segue destination="jBR-yN-jba" kind="show" id="LfT-Vb-SSg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starships" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q91-oa-HUh">
@@ -95,6 +96,7 @@
                                 <state key="normal" backgroundImage="icon-vehicle-1"/>
                                 <connections>
                                     <action selector="CategoryButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5E7-ge-iaS"/>
+                                    <segue destination="jBR-yN-jba" kind="show" id="rNw-IG-wNf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -123,10 +125,10 @@
             </objects>
             <point key="canvasLocation" x="22" y="139"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="ujr-Tp-ExS">
             <objects>
-                <viewController id="jBR-yN-jba" sceneMemberID="viewController">
+                <viewController id="jBR-yN-jba" customClass="DetailViewController" customModule="API_Awakens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yhU-qq-nDe"/>
                         <viewControllerLayoutGuide type="bottom" id="p6E-aO-td2"/>
@@ -250,6 +252,14 @@
                             <constraint firstItem="rea-wW-Jit" firstAttribute="top" secondItem="knn-dX-lf6" secondAttribute="bottom" constant="8" id="hmc-N5-Nkw"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="line1Label" destination="qA6-qX-TA2" id="kzv-vr-YJ6"/>
+                        <outlet property="line2Label" destination="Zr1-Kg-Hr9" id="gD5-CA-K9f"/>
+                        <outlet property="line3Label" destination="HWb-be-1aa" id="eVD-3O-1uO"/>
+                        <outlet property="line4Label" destination="ocJ-v8-N0g" id="sy8-4M-z2P"/>
+                        <outlet property="line5Label" destination="mi5-2f-9ED" id="JgY-sL-E8z"/>
+                        <outlet property="nameLabel" destination="knn-dX-lf6" id="aLk-nZ-wJ5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suk-Ld-Zfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

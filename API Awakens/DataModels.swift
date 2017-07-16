@@ -10,6 +10,7 @@ import Foundation
 
 
 var selectedCategory: CategorySelected = .starships
+var jsonPerson: Person = Person(json: [:])!
 
 enum CategorySelected {
     

@@ -41,6 +41,8 @@ class NetworkManager {
         case .people:
         let people = results.flatMap { Person(json: $0) }
             completion(people)
+    
+            
             
         case .starships:
             

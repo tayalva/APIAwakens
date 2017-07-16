@@ -45,25 +45,20 @@ class ViewController: UIViewController {
         default: return
         }
         
-        networkCall()
 
         
     }
     
+}
+
+func networkCall() {
     
-    func networkCall() {
+    let networkCall = NetworkManager()
+    
+    networkCall.fetchData { (fetchedInfo) in
         
-        let networkCall = NetworkManager()
+        print(fetchedInfo)
         
-        networkCall.fetchData { (fetchedInfo) in
-            
-            print(fetchedInfo)
-            
-        }
     }
-
-
-
-
 }
 
