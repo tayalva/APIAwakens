@@ -17,7 +17,7 @@
 		A63403461F0D6B1500D837CC /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63403451F0D6B1500D837CC /* Starship.swift */; };
 		A63403491F0EA39900D837CC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63403481F0EA39900D837CC /* NetworkManager.swift */; };
 		A6DE9B201F17F8B900E2362A /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DE9B1F1F17F8B900E2362A /* Errors.swift */; };
-		A6DE9B221F19F24800E2362A /* Data Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DE9B211F19F24800E2362A /* Data Models.swift */; };
+		A6DE9B221F19F24800E2362A /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DE9B211F19F24800E2362A /* DataModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		A63403451F0D6B1500D837CC /* Starship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Starship.swift; path = ../Starship.swift; sourceTree = "<group>"; };
 		A63403481F0EA39900D837CC /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A6DE9B1F1F17F8B900E2362A /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		A6DE9B211F19F24800E2362A /* Data Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data Models.swift"; sourceTree = "<group>"; };
+		A6DE9B211F19F24800E2362A /* DataModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 				A63403311F0D657C00D837CC /* ViewController.swift */,
 				A63403331F0D657C00D837CC /* Main.storyboard */,
 				A63403481F0EA39900D837CC /* NetworkManager.swift */,
-				A6DE9B211F19F24800E2362A /* Data Models.swift */,
+				A6DE9B211F19F24800E2362A /* DataModels.swift */,
 				A6DE9B1F1F17F8B900E2362A /* Errors.swift */,
 				A63403361F0D657C00D837CC /* Assets.xcassets */,
 				A63403381F0D657C00D837CC /* LaunchScreen.storyboard */,
@@ -165,7 +165,7 @@
 			files = (
 				A63403491F0EA39900D837CC /* NetworkManager.swift in Sources */,
 				A63403441F0D6AFC00D837CC /* Vehicle.swift in Sources */,
-				A6DE9B221F19F24800E2362A /* Data Models.swift in Sources */,
+				A6DE9B221F19F24800E2362A /* DataModels.swift in Sources */,
 				A63403321F0D657C00D837CC /* ViewController.swift in Sources */,
 				A63403461F0D6B1500D837CC /* Starship.swift in Sources */,
 				A63403421F0D6AF100D837CC /* Person.swift in Sources */,
