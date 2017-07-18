@@ -31,12 +31,25 @@ class DetailViewController: UIViewController {
         
     
         let networkCall = NetworkManager()
-        networkCall.fetchData { (fetchedInfo) in
-        print(fetchedInfo)
+        networkCall.fetchPerson { fetchedInfo in
             
             
-          
+        let person = fetchedInfo.first
             
+            OperationQueue.main.addOperation {
+                
+        
+            self.nameLabel.text = person?.name
+            self.line1Label.text = person?.birthdate
+            self.line2Label.text = person?.home
+            self.line3Label.text = person?.height
+            self.line4Label.text = person?.eyeColor
+            self.line5Label.text = person?.hairColor
+            
+           print(fetchedInfo.count)
+            
+        }
+        
         }
     }
 

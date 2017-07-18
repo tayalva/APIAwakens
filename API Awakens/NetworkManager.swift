@@ -12,6 +12,8 @@ import Foundation
 class NetworkManager {
     
     
+    var jsonResults = [""]
+    
     var url: URL {
         
         switch selectedCategory {
@@ -21,44 +23,68 @@ class NetworkManager {
         case .vehicles: return URL(string: "http://swapi.co/api/vehicles/")!
             
         }
+     
     }
+    
+///////////////////
 
-    func fetchData(completion: @escaping ([Any]) -> Void) {
+    func fetchPerson(completion: @escaping ([Person]) -> Void) {
         print(url)
-    let task = URLSession.shared.dataTask(with: url) { (data,
+        let task = URLSession.shared.dataTask(with: url) { (data,
         response, error) in
-        
         guard let data = data,
             let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
             let json = rawJSON as? [String: AnyObject] else {
                 print("error!")
-                return
-        }
+                return }
         guard let results = json["results"] as? [[String: Any]] else { fatalError() }
-        
-        switch selectedCategory {
-            
-        case .people:
         let people = results.flatMap { Person(json: $0) }
-            completion(people)
-    
+        completion(people)
             
-            
-        case .starships:
-            
-            let starships = results.flatMap { Starship(json: $0) }
-            completion(starships)
-            
-        case .vehicles:
-            
-            let vehicles = results.flatMap { Vehicle(json: $0) }
-            completion(vehicles)
-            
+    }
+        task.resume()
+        
+    }
+/////////////////////
+        
+    func fetchVehicle(completion: @escaping ([Vehicle]) -> Void) {
+            print(url)
+            let task = URLSession.shared.dataTask(with: url) { (data,
+                response, error) in
+                guard let data = data,
+                    let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
+                    let json = rawJSON as? [String: AnyObject] else {
+                        print("error!")
+                        return }
+                
+                guard let results = json["results"] as? [[String: Any]] else { fatalError() }
+                let vehicle = results.flatMap { Vehicle(json: $0) }
+                completion(vehicle)
+            }
+        task.resume()
+      
+    }
+ /////////////////////////
+        
+        
+        func fetchStarship(completion: @escaping ([Starship]) -> Void) {
+            print(url)
+            let task = URLSession.shared.dataTask(with: url) { (data,
+                response, error) in
+                guard let data = data,
+                    let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
+                    let json = rawJSON as? [String: AnyObject] else {
+                        print("error!")
+                        return }
+                
+                guard let results = json["results"] as? [[String: Any]] else { fatalError() }
+                let starship = results.flatMap { Starship(json: $0) }
+                completion(starship)
+            }
+            task.resume()
         }
         
-    }
 
-    task.resume()
-    }
+
 }
 

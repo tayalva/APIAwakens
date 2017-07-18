@@ -51,6 +51,7 @@ class ViewController: UIViewController {
     
 }
 
+/*
 func networkCall() {
     
     let networkCall = NetworkManager()
@@ -60,5 +61,8 @@ func networkCall() {
         print(fetchedInfo)
         
     }
-}
+ }
+    
+    */
+
 
