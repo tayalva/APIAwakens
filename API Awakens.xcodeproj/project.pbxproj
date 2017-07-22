@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A62AF9971F224DF600E6919F /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62AF9961F224DF600E6919F /* Planet.swift */; };
 		A63403301F0D657C00D837CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A634032F1F0D657C00D837CC /* AppDelegate.swift */; };
 		A63403321F0D657C00D837CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63403311F0D657C00D837CC /* ViewController.swift */; };
 		A63403351F0D657C00D837CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63403331F0D657C00D837CC /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A62AF9961F224DF600E6919F /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		A634032C1F0D657C00D837CC /* API Awakens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "API Awakens.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A634032F1F0D657C00D837CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A63403311F0D657C00D837CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,10 +72,10 @@
 			children = (
 				A63403471F0D6B2C00D837CC /* Data Models */,
 				A634032F1F0D657C00D837CC /* AppDelegate.swift */,
+				A63403481F0EA39900D837CC /* NetworkManager.swift */,
 				A63403311F0D657C00D837CC /* ViewController.swift */,
 				A6DE9B231F1AFCEA00E2362A /* DetailViewController.swift */,
 				A63403331F0D657C00D837CC /* Main.storyboard */,
-				A63403481F0EA39900D837CC /* NetworkManager.swift */,
 				A6DE9B211F19F24800E2362A /* DataModels.swift */,
 				A6DE9B1F1F17F8B900E2362A /* Errors.swift */,
 				A63403361F0D657C00D837CC /* Assets.xcassets */,
@@ -89,6 +91,7 @@
 				A63403411F0D6AF100D837CC /* Person.swift */,
 				A63403431F0D6AFC00D837CC /* Vehicle.swift */,
 				A63403451F0D6B1500D837CC /* Starship.swift */,
+				A62AF9961F224DF600E6919F /* Planet.swift */,
 			);
 			name = "Data Models";
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				A63403421F0D6AF100D837CC /* Person.swift in Sources */,
 				A63403301F0D657C00D837CC /* AppDelegate.swift in Sources */,
 				A6DE9B201F17F8B900E2362A /* Errors.swift in Sources */,
+				A62AF9971F224DF600E6919F /* Planet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

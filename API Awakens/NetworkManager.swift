@@ -14,6 +14,7 @@ class NetworkManager {
     
     var jsonResults = [""]
     
+    
     var url: URL {
         
         switch selectedCategory {
@@ -41,10 +42,47 @@ class NetworkManager {
         let people = results.flatMap { Person(json: $0) }
         completion(people)
             
+            
+            
     }
         task.resume()
-        
     }
+    
+    
+    func fetchPlanet(completion: @escaping (Planet) -> Void) {
+        
+        guard let url = URL(string: homePlanetURL) else {
+        print("no planet!!!")
+            return
+        
+        }
+        
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let data = data,
+                
+                let rawJson = try? JSONSerialization.jsonObject(with: data),
+                
+                let json = rawJson as? [String: AnyObject],
+                
+                let planet = Planet(json: json) {
+                
+                completion(planet)
+                
+            } else {
+                
+                print("Either no data was returned, or data was not serialized.")
+                
+            
+            }
+           
+        }
+        
+        task.resume()
+    }
+    
+
 /////////////////////
         
     func fetchVehicle(completion: @escaping ([Vehicle]) -> Void) {

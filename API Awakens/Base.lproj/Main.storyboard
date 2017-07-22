@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -225,6 +226,52 @@
                                     <constraint firstItem="lg2-jE-ggk" firstAttribute="leading" secondItem="rea-wW-Jit" secondAttribute="leading" constant="90" id="x69-lp-xH0"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XC3-je-vD1" userLabel="VechicleStarshipView">
+                                <rect key="frame" x="16" y="49" width="85" height="215"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="TLd-XR-XLE">
+                                        <rect key="frame" x="8" y="21" width="68" height="172"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Make:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhX-Az-5dc">
+                                                <rect key="frame" x="0.0" y="0.0" width="54" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Cost:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7k-pn-ey5">
+                                                <rect key="frame" x="0.0" y="37" width="47.5" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Length:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7S-LJ-YgK">
+                                                <rect key="frame" x="0.0" y="74" width="68" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Class:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5J-PB-JwJ">
+                                                <rect key="frame" x="0.0" y="111" width="55" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Crew:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkS-ZP-WuQ">
+                                                <rect key="frame" x="0.0" y="148" width="52" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="Z3J-Mo-E7p"/>
+                                    <constraint firstAttribute="height" constant="215" id="zaI-a6-Cvn"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="knn-dX-lf6">
                                 <rect key="frame" x="16" y="5" width="343" height="36"/>
                                 <constraints>
@@ -242,6 +289,10 @@
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" playsSound="YES"/>
                                 </accessibility>
+                                <connections>
+                                    <outlet property="dataSource" destination="jBR-yN-jba" id="9Hk-fl-LHI"/>
+                                    <outlet property="delegate" destination="jBR-yN-jba" id="q1K-G7-vZp"/>
+                                </connections>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -250,6 +301,8 @@
                             <constraint firstItem="knn-dX-lf6" firstAttribute="centerX" secondItem="wWa-pM-e76" secondAttribute="centerX" id="OZR-2P-2Dv"/>
                             <constraint firstItem="knn-dX-lf6" firstAttribute="top" secondItem="yhU-qq-nDe" secondAttribute="bottom" constant="5" id="at5-0k-5uc"/>
                             <constraint firstItem="rea-wW-Jit" firstAttribute="top" secondItem="knn-dX-lf6" secondAttribute="bottom" constant="8" id="hmc-N5-Nkw"/>
+                            <constraint firstItem="XC3-je-vD1" firstAttribute="leading" secondItem="wWa-pM-e76" secondAttribute="leadingMargin" id="rdO-Wn-GK8"/>
+                            <constraint firstItem="XC3-je-vD1" firstAttribute="top" secondItem="knn-dX-lf6" secondAttribute="bottom" constant="8" id="zzY-jn-OKc"/>
                         </constraints>
                     </view>
                     <connections>
@@ -259,6 +312,8 @@
                         <outlet property="line4Label" destination="ocJ-v8-N0g" id="sy8-4M-z2P"/>
                         <outlet property="line5Label" destination="mi5-2f-9ED" id="JgY-sL-E8z"/>
                         <outlet property="nameLabel" destination="knn-dX-lf6" id="aLk-nZ-wJ5"/>
+                        <outlet property="pickerWheel" destination="0tY-0i-Goe" id="eZm-hz-mRW"/>
+                        <outlet property="vehicleStarshipView" destination="XC3-je-vD1" id="G9f-E4-Iw8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suk-Ld-Zfc" userLabel="First Responder" sceneMemberID="firstResponder"/>

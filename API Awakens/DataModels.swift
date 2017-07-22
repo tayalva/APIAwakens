@@ -10,7 +10,8 @@ import Foundation
 
 
 var selectedCategory: CategorySelected = .starships
-var jsonPerson: Person = Person(json: [:])!
+var homePlanetURL: String = ""
+
 
 enum CategorySelected {
     
@@ -19,3 +20,4 @@ enum CategorySelected {
     case vehicles
     
 }
+
