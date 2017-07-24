@@ -51,18 +51,5 @@ class ViewController: UIViewController {
     
 }
 
-/*
-func networkCall() {
-    
-    let networkCall = NetworkManager()
-    
-    networkCall.fetchData { (fetchedInfo) in
-        
-        print(fetchedInfo)
-        
-    }
- }
-    
-    */
 
 

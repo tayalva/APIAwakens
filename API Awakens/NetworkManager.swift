@@ -36,7 +36,7 @@ class NetworkManager {
         guard let data = data,
             let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
             let json = rawJSON as? [String: AnyObject] else {
-                print("error!")
+                print("error! no json for person")
                 return }
         guard let results = json["results"] as? [[String: Any]] else { fatalError() }
         let people = results.flatMap { Person(json: $0) }

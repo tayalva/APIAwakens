@@ -9,7 +9,7 @@
 import Foundation
 
 
-var selectedCategory: CategorySelected = .starships
+var selectedCategory: CategorySelected = .people
 var homePlanetURL: String = ""
 
 

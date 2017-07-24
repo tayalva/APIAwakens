@@ -21,13 +21,13 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBOutlet weak var vehicleStarshipView: UIView!
     
-    
-    let foods = ["Apples", "Bananas", "Beans", "Tomatoes", "Corn"]
 
     
  
      let networkCall = NetworkManager()
-     var peopleNames: [String] = []
+     var namesArray: [String] = []
+     var starshipNames: [String] = []
+     var vehicleNames: [String] = []
      var indexOfSelection: Int = 0
     
     
@@ -35,10 +35,11 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        print(selectedCategory)
         populatePickerWheel()
-     displayInfo()
-        print(homePlanetURL)
+        displayInfo()
+        
+    
     }
     
 
@@ -47,9 +48,12 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 // Updates Labels with the appropriate information 
     
 func displayInfo() {
+
+    
         switch selectedCategory {
             
         case .people:
+           
             
             vehicleStarshipView.isHidden = true
             
@@ -57,12 +61,13 @@ func displayInfo() {
                 
                 
                 let person = fetchedInfo[self.indexOfSelection]
-
+                
+            
                 homePlanetURL = person.home
                     
                     
                 OperationQueue.main.addOperation {
-                   
+            
                     self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = person.name
                     self.line1Label.text = person.birthdate
@@ -97,11 +102,11 @@ func displayInfo() {
             
             networkCall.fetchStarship { fetchedInfo in
                 
-                
                 let starship = fetchedInfo[self.indexOfSelection]
                 
                 OperationQueue.main.addOperation {
-                    
+                  
+                    self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = starship.name
                     self.line1Label.text = starship.make
                     self.line2Label.text = starship.cost
@@ -117,11 +122,11 @@ func displayInfo() {
              
             networkCall.fetchVehicle { fetchedInfo in
                 
-                
                 let vehicle = fetchedInfo[self.indexOfSelection]
                 
                 OperationQueue.main.addOperation {
-                    
+                 
+                    self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = vehicle.name
                     self.line1Label.text = vehicle.make
                     self.line2Label.text = vehicle.cost
@@ -140,22 +145,77 @@ func displayInfo() {
     
     func populatePickerWheel() {
         
-        networkCall.fetchPerson { fetchedInfo in
+        print(namesArray)
+        
+        switch selectedCategory {
             
-            OperationQueue.main.addOperation {
-                
+        case .people:
             
-            for person in fetchedInfo {
+            networkCall.fetchPerson { fetchedInfo in
                 
-                self.peopleNames.append(person.name)
+                let names = fetchedInfo
+                
+                OperationQueue.main.addOperation {
+                    
+                    
+                    for person in names {
+                        
+                        self.namesArray.append(person.name) }
+                    
+                    self.pickerWheel.reloadAllComponents()
+                }
+                
+                
+                print(self.namesArray)
                 
             }
+            
+        case .vehicles:
+            
+            
+            networkCall.fetchVehicle { fetchedInfo in
+                
+                let names = fetchedInfo
+                
+                
+                OperationQueue.main.addOperation {
+                    
+                    
+                    for vehicle in names {
+                        
+                        self.namesArray.append(vehicle.name) }
+                    self.pickerWheel.reloadAllComponents()
+                }
+              
                 
             }
+            
+        case .starships:
+            
+            networkCall.fetchStarship { fetchedInfo in
+                
+                let names = fetchedInfo
+                
+                OperationQueue.main.addOperation {
+                    
+                    
+                    for starship in names {
+                        
+                        self.namesArray.append(starship.name) }
+                    self.pickerWheel.reloadAllComponents()
+                }
+               
+                
+            }
+            
         }
         
         
-    }
+        
+    
+}
+    
+
 
     // PickerView Helper Methods
     
@@ -166,18 +226,19 @@ func displayInfo() {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return peopleNames[row]
+        return namesArray[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return peopleNames.count
+        return namesArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        nameLabel.text = peopleNames[row]
-        indexOfSelection = row
+        
+       
         displayInfo()
-        print(peopleNames)
+        nameLabel.text = namesArray[row]
+        indexOfSelection = row
     }
     
     
