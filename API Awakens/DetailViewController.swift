@@ -35,7 +35,6 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(selectedCategory)
         populatePickerWheel()
         displayInfo()
         
@@ -75,7 +74,6 @@ func displayInfo() {
                     self.line4Label.text = person.eyeColor
                     self.line5Label.text = person.hairColor
                     
-                    print(homePlanetURL)
                    
                     }
             
@@ -114,7 +112,7 @@ func displayInfo() {
                     self.line4Label.text = starship.starshipClass
                     self.line5Label.text = starship.crew
                     
-                    print(fetchedInfo.count) } }
+                     } }
             
         case .vehicles:
             
@@ -145,7 +143,6 @@ func displayInfo() {
     
     func populatePickerWheel() {
         
-        print(namesArray)
         
         switch selectedCategory {
             
@@ -166,7 +163,7 @@ func displayInfo() {
                 }
                 
                 
-                print(self.namesArray)
+            
                 
             }
             

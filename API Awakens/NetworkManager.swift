@@ -13,15 +13,15 @@ class NetworkManager {
     
     
     var jsonResults = [""]
-    
+    var pageIndex = 8
     
     var url: URL {
         
         switch selectedCategory {
             
-        case .people: return URL(string: "http://swapi.co/api/people/")!
-        case .starships: return URL(string: "http://swapi.co/api/starships/")!
-        case .vehicles: return URL(string: "http://swapi.co/api/vehicles/")!
+        case .people: return URL(string: "http://swapi.co/api/people/?page=\(pageIndex)")!
+        case .starships: return URL(string: "http://swapi.co/api/starships/?page=\(pageIndex)")!
+        case .vehicles: return URL(string: "http://swapi.co/api/vehicles/?page=\(pageIndex)")!
             
         }
      
@@ -30,7 +30,7 @@ class NetworkManager {
 ///////////////////
 
     func fetchPerson(completion: @escaping ([Person]) -> Void) {
-        print(url)
+    
         let task = URLSession.shared.dataTask(with: url) { (data,
         response, error) in
         guard let data = data,
@@ -38,6 +38,10 @@ class NetworkManager {
             let json = rawJSON as? [String: AnyObject] else {
                 print("error! no json for person")
                 return }
+        guard let nextPage = json["next"] as? String else {
+            print("there is no next page")
+            return }
+         print(nextPage)
         guard let results = json["results"] as? [[String: Any]] else { fatalError() }
         let people = results.flatMap { Person(json: $0) }
         completion(people)
