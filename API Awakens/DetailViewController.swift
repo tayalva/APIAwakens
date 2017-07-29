@@ -38,7 +38,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        displayInfo()
+        networkRequest()
         
        
         
@@ -50,7 +50,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
 // Updates Labels with the appropriate information 
     
-func displayInfo() {
+func networkRequest() {
 
  
         switch selectedCategory {
@@ -61,10 +61,13 @@ func displayInfo() {
             
           
             networkCall.fetchPerson { fetchedInfo in
+           
+              self.personArray = fetchedInfo
                 
                let names = fetchedInfo
                let person = fetchedInfo[self.indexOfSelection]
-              print(fetchedInfo.count)
+                
+                
             
                 homePlanetURL = person.home
                 
@@ -76,14 +79,10 @@ func displayInfo() {
                         
                     }
                     
-                    print(person)
-                    
+                    self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
-                    self.nameLabel.text = person.name
-                    self.line1Label.text = person.birthdate
-                    self.line3Label.text = person.height
-                    self.line4Label.text = person.eyeColor
-                    self.line5Label.text = person.hairColor
+                    self.displayInfo()
+   
                 }
                     
                 
@@ -169,7 +168,30 @@ func displayInfo() {
 
 }
     
-    
+    func displayInfo() {
+        
+        switch selectedCategory {
+            
+        case .people:
+            
+            let person = personArray[indexOfSelection]
+      
+            
+            namesArray.noDuplicates()
+
+            nameLabel.text = person.name
+            line1Label.text = person.birthdate
+            line3Label.text = person.height
+            line4Label.text = person.eyeColor
+            line5Label.text = person.hairColor
+            
+        case .starships: break
+            
+        case .vehicles: break
+            
+        }
+        
+    }
 
     
 
@@ -192,10 +214,13 @@ func displayInfo() {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-       
-        print(personArray)
-        nameLabel.text = namesArray[row]
+      
+        
         indexOfSelection = row
+        nameLabel.text = namesArray[row]
+          displayInfo()
+        print(personArray[indexOfSelection])
+        print(indexOfSelection)
     }
     
     

@@ -50,7 +50,7 @@ class NetworkManager {
             //print(nextPage)
          
     
-         print(self.pageIndex)
+        
         guard let results = json["results"] as? [[String: Any]] else {
             
             
@@ -70,16 +70,16 @@ class NetworkManager {
       
             
              if nextPage != nil {
-              print(nextPage)
-              
+            
+                
                 self.fetchPerson(completion: completion)
                 
                 
-            }
+             } else { self.pageIndex = 1 }
             
             self.peopleArray.noDuplicates()
+            
        
-            print(self.peopleArray)
                 completion(self.peopleArray)
             
             
