@@ -11,14 +11,21 @@ import UIKit
 class ViewController: UIViewController {
     
   
+    
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+         var array = [1,2,3,1,2,3,4,4,4,5,5]
+        
+        array.noDuplicates()
         
         
+        
+        print(array)
         
        
      

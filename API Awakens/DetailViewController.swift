@@ -8,6 +8,8 @@
 
 import UIKit
 
+var networkRequestDone = false
+
 class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
@@ -29,14 +31,16 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
      var starshipNames: [String] = []
      var vehicleNames: [String] = []
      var indexOfSelection: Int = 0
-    
-    
+     var personArray: [Person] = []
+
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        populatePickerWheel()
+
         displayInfo()
+        
+       
         
     
     }
@@ -48,35 +52,41 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
 func displayInfo() {
 
-    
+ 
         switch selectedCategory {
             
         case .people:
            
-            
             vehicleStarshipView.isHidden = true
             
+          
             networkCall.fetchPerson { fetchedInfo in
                 
-                
-                let person = fetchedInfo[self.indexOfSelection]
-                
+               let names = fetchedInfo
+               let person = fetchedInfo[self.indexOfSelection]
+              print(fetchedInfo.count)
             
                 homePlanetURL = person.home
-                    
-                    
+                
                 OperationQueue.main.addOperation {
-            
+                    
+                    for person in names {
+                        
+                        self.namesArray.append(person.name)
+                        
+                    }
+                    
+                    print(person)
+                    
                     self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = person.name
                     self.line1Label.text = person.birthdate
                     self.line3Label.text = person.height
                     self.line4Label.text = person.eyeColor
                     self.line5Label.text = person.hairColor
+                }
                     
-                   
-                    }
-            
+                
             
             
                 self.networkCall.fetchPlanet {fetchedPlanet in
@@ -86,24 +96,33 @@ func displayInfo() {
                         self.line2Label.text = fetchedPlanet.name
                     }
                     
+                    
+                    
                 }
-                
-            
             
             }
-           
-     
-            
+        
+  
+    
         case .starships:
-            
+        
                  vehicleStarshipView.isHidden = false
             
             networkCall.fetchStarship { fetchedInfo in
                 
+            
+                
+                let names = fetchedInfo
                 let starship = fetchedInfo[self.indexOfSelection]
                 
                 OperationQueue.main.addOperation {
                   
+                    for starship in names {
+                        
+                        self.namesArray.append(starship.name)
+                    
+                    }
+                    
                     self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = starship.name
                     self.line1Label.text = starship.make
@@ -114,16 +133,24 @@ func displayInfo() {
                     
                      } }
             
-        case .vehicles:
+        
             
+        case .vehicles: break
+        
              vehicleStarshipView.isHidden = false
              
             networkCall.fetchVehicle { fetchedInfo in
                 
+                let names = fetchedInfo
                 let vehicle = fetchedInfo[self.indexOfSelection]
                 
                 OperationQueue.main.addOperation {
                  
+                    for vehicle in names {
+                        
+                        self.namesArray.append(vehicle.name)
+                    }
+                    
                     self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = vehicle.name
                     self.line1Label.text = vehicle.make
@@ -133,84 +160,17 @@ func displayInfo() {
                     self.line5Label.text = vehicle.crew
                     
                    } }
+ 
+
         
    
     }
+    
 
 }
- 
-    // Function to populate the picker wheel with names from the JSON data
     
-    func populatePickerWheel() {
-        
-        
-        switch selectedCategory {
-            
-        case .people:
-            
-            networkCall.fetchPerson { fetchedInfo in
-                
-                let names = fetchedInfo
-                
-                OperationQueue.main.addOperation {
-                    
-                    
-                    for person in names {
-                        
-                        self.namesArray.append(person.name) }
-                    
-                    self.pickerWheel.reloadAllComponents()
-                }
-                
-                
-            
-                
-            }
-            
-        case .vehicles:
-            
-            
-            networkCall.fetchVehicle { fetchedInfo in
-                
-                let names = fetchedInfo
-                
-                
-                OperationQueue.main.addOperation {
-                    
-                    
-                    for vehicle in names {
-                        
-                        self.namesArray.append(vehicle.name) }
-                    self.pickerWheel.reloadAllComponents()
-                }
-              
-                
-            }
-            
-        case .starships:
-            
-            networkCall.fetchStarship { fetchedInfo in
-                
-                let names = fetchedInfo
-                
-                OperationQueue.main.addOperation {
-                    
-                    
-                    for starship in names {
-                        
-                        self.namesArray.append(starship.name) }
-                    self.pickerWheel.reloadAllComponents()
-                }
-               
-                
-            }
-            
-        }
-        
-        
-        
     
-}
+
     
 
 
@@ -233,7 +193,7 @@ func displayInfo() {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
        
-        displayInfo()
+        print(personArray)
         nameLabel.text = namesArray[row]
         indexOfSelection = row
     }

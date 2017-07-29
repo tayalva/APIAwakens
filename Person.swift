@@ -47,3 +47,12 @@ struct Person {
         
     }
 }
+
+extension Person: Equatable {
+    
+    static func == (lhs: Person, rhs: Person) -> Bool {
+        
+        return lhs.name == rhs.name && lhs.birthdate == rhs.birthdate && lhs.home == rhs.home && lhs.height == rhs.height && lhs.eyeColor == rhs.eyeColor && lhs.hairColor == rhs.hairColor
+        
+    }
+}

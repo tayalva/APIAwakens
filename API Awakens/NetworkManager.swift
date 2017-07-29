@@ -9,11 +9,15 @@
 import Foundation
 
 
+
 class NetworkManager {
     
     
     var jsonResults = [""]
-    var pageIndex = 8
+    var isNextPage = true
+    var pageIndex = 1
+    var itemCount = 1
+     var peopleArray: [Person] = []
     
     var url: URL {
         
@@ -30,7 +34,9 @@ class NetworkManager {
 ///////////////////
 
     func fetchPerson(completion: @escaping ([Person]) -> Void) {
-    
+        
+       
+        
         let task = URLSession.shared.dataTask(with: url) { (data,
         response, error) in
         guard let data = data,
@@ -38,18 +44,53 @@ class NetworkManager {
             let json = rawJSON as? [String: AnyObject] else {
                 print("error! no json for person")
                 return }
-        guard let nextPage = json["next"] as? String else {
-            print("there is no next page")
+        
+           let nextPage = json["next"] as? String
+            
+            //print(nextPage)
+         
+    
+         print(self.pageIndex)
+        guard let results = json["results"] as? [[String: Any]] else {
+            
+            
+            print("no results to show")
             return }
-         print(nextPage)
-        guard let results = json["results"] as? [[String: Any]] else { fatalError() }
+            
         let people = results.flatMap { Person(json: $0) }
-        completion(people)
+            
+   
+            
+           
+            self.peopleArray += people
+            
+          
+            self.pageIndex += 1
+           
+      
+            
+             if nextPage != nil {
+              print(nextPage)
+              
+                self.fetchPerson(completion: completion)
+                
+                
+            }
+            
+            self.peopleArray.noDuplicates()
+       
+            print(self.peopleArray)
+                completion(self.peopleArray)
             
             
             
     }
+        
         task.resume()
+            
+            
+
+    
     }
     
     

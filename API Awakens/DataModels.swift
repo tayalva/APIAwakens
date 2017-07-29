@@ -21,3 +21,22 @@ enum CategorySelected {
     
 }
 
+extension Array where Element: Equatable {
+    
+    mutating func noDuplicates() {
+        
+        var uniqueElements:[Element] = []
+        
+        for element in self {
+            
+            if !uniqueElements.contains ( element ) {
+                
+                uniqueElements.append(element)
+            }
+        }
+        
+        self = uniqueElements
+    }
+    
+}
+
