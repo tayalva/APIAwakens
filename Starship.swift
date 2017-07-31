@@ -44,3 +44,13 @@ struct Starship {
         self.crew = crew
     }
 }
+
+
+extension Starship: Equatable {
+    
+    static func == (lhs: Starship, rhs: Starship) -> Bool {
+        
+        return lhs.name == rhs.name && lhs.make == rhs.make && lhs.cost == rhs.cost && lhs.length == rhs.length && lhs.starshipClass == rhs.starshipClass && lhs.crew == rhs.crew
+        
+    }
+}

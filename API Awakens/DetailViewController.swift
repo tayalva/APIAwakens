@@ -32,12 +32,16 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
      var vehicleNames: [String] = []
      var indexOfSelection: Int = 0
      var personArray: [Person] = []
+     var vehicleArray: [Vehicle] = []
+     var starshipArray: [Starship] = []
 
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        namesArray.removeAll()
         networkRequest()
         
        
@@ -84,12 +88,11 @@ func networkRequest() {
                     self.displayInfo()
    
                 }
-                    
                 
-            
-            
                 self.networkCall.fetchPlanet {fetchedPlanet in
                     
+                    
+
                     
                     OperationQueue.main.addOperation {
                         self.line2Label.text = fetchedPlanet.name
@@ -109,7 +112,7 @@ func networkRequest() {
             
             networkCall.fetchStarship { fetchedInfo in
                 
-            
+                self.starshipArray = fetchedInfo
                 
                 let names = fetchedInfo
                 let starship = fetchedInfo[self.indexOfSelection]
@@ -121,7 +124,7 @@ func networkRequest() {
                         self.namesArray.append(starship.name)
                     
                     }
-                    
+                    self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = starship.name
                     self.line1Label.text = starship.make
@@ -134,11 +137,13 @@ func networkRequest() {
             
         
             
-        case .vehicles: break
+        case .vehicles: 
         
              vehicleStarshipView.isHidden = false
              
             networkCall.fetchVehicle { fetchedInfo in
+                
+                self.vehicleArray = fetchedInfo
                 
                 let names = fetchedInfo
                 let vehicle = fetchedInfo[self.indexOfSelection]
@@ -149,7 +154,7 @@ func networkRequest() {
                         
                         self.namesArray.append(vehicle.name)
                     }
-                    
+                    self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
                     self.nameLabel.text = vehicle.name
                     self.line1Label.text = vehicle.make
@@ -168,6 +173,25 @@ func networkRequest() {
 
 }
     
+    
+    func fetchPlanet() {
+        
+        homePlanetURL = personArray[indexOfSelection].home
+        
+        networkCall.fetchPlanet {fetchedPlanet in
+            
+            
+            OperationQueue.main.addOperation {
+                self.line2Label.text = fetchedPlanet.name
+
+            }
+            
+            
+            
+        }
+        
+        
+    }
     func displayInfo() {
         
         switch selectedCategory {
@@ -184,10 +208,32 @@ func networkRequest() {
             line3Label.text = person.height
             line4Label.text = person.eyeColor
             line5Label.text = person.hairColor
+            fetchPlanet()
             
-        case .starships: break
+        case .starships:
             
-        case .vehicles: break
+            let starship = starshipArray[indexOfSelection]
+            namesArray.noDuplicates()
+            self.nameLabel.text = starship.name
+            self.line1Label.text = starship.make
+            self.line2Label.text = starship.cost
+            self.line3Label.text = starship.length
+            self.line4Label.text = starship.starshipClass
+            self.line5Label.text = starship.crew
+        
+            
+        case .vehicles:
+            
+            let vehicle = vehicleArray[indexOfSelection]
+            namesArray.noDuplicates()
+            self.nameLabel.text = vehicle.name
+            self.line1Label.text = vehicle.make
+            self.line2Label.text = vehicle.cost
+            self.line3Label.text = vehicle.length
+            self.line4Label.text = vehicle.vehicleClass
+            self.line5Label.text = vehicle.crew
+            
+            
             
         }
         
@@ -219,12 +265,12 @@ func networkRequest() {
         indexOfSelection = row
         nameLabel.text = namesArray[row]
           displayInfo()
-        print(personArray[indexOfSelection])
         print(indexOfSelection)
+        
+     
     }
     
-    
-    // Network Request to fetch homeworld data
+
     
 
 }

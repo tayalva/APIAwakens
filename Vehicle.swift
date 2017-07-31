@@ -43,3 +43,13 @@ struct Vehicle {
         self.crew = crew
     }
 }
+
+
+extension Vehicle: Equatable {
+    
+    static func == (lhs: Vehicle, rhs: Vehicle) -> Bool {
+        
+        return lhs.name == rhs.name && lhs.make == rhs.make && lhs.cost == rhs.cost && lhs.length == rhs.length && lhs.vehicleClass == rhs.vehicleClass && lhs.crew == rhs.crew
+        
+    }
+}

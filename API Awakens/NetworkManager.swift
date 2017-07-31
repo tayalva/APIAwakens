@@ -17,7 +17,9 @@ class NetworkManager {
     var isNextPage = true
     var pageIndex = 1
     var itemCount = 1
-     var peopleArray: [Person] = []
+    var peopleArray: [Person] = []
+    var vehicleArray: [Vehicle] = []
+    var starshipArray: [Starship] = []
     
     var url: URL {
         
@@ -46,44 +48,24 @@ class NetworkManager {
                 return }
         
            let nextPage = json["next"] as? String
-            
-            //print(nextPage)
-         
-    
-        
-        guard let results = json["results"] as? [[String: Any]] else {
-            
-            
+           guard let results = json["results"] as? [[String: Any]] else {
             print("no results to show")
             return }
             
         let people = results.flatMap { Person(json: $0) }
-            
-   
-            
-           
+
             self.peopleArray += people
-            
-          
             self.pageIndex += 1
-           
-      
-            
              if nextPage != nil {
             
-                
                 self.fetchPerson(completion: completion)
                 
                 
              } else { self.pageIndex = 1 }
             
             self.peopleArray.noDuplicates()
-            
-       
-                completion(self.peopleArray)
-            
-            
-            
+            completion(self.peopleArray)
+
     }
         
         task.resume()
@@ -139,10 +121,22 @@ class NetworkManager {
                     let json = rawJSON as? [String: AnyObject] else {
                         print("error!")
                         return }
-                
+                let nextPage = json["next"] as? String
                 guard let results = json["results"] as? [[String: Any]] else { fatalError() }
                 let vehicle = results.flatMap { Vehicle(json: $0) }
-                completion(vehicle)
+                
+                self.vehicleArray += vehicle
+                self.pageIndex += 1
+                
+                if nextPage != nil {
+                    
+                    self.fetchVehicle(completion: completion)
+                } else { self.pageIndex = 1 }
+                
+                self.vehicleArray.noDuplicates()
+                
+        
+                completion(self.vehicleArray)
             }
         task.resume()
       
@@ -159,10 +153,20 @@ class NetworkManager {
                     let json = rawJSON as? [String: AnyObject] else {
                         print("error!")
                         return }
-                
+                let nextPage = json["next"] as? String
                 guard let results = json["results"] as? [[String: Any]] else { fatalError() }
                 let starship = results.flatMap { Starship(json: $0) }
-                completion(starship)
+                
+                self.starshipArray += starship
+                self.pageIndex += 1
+                if nextPage != nil {
+                    
+                    self.fetchStarship(completion: completion)
+                    
+                }else { self.pageIndex = 1 }
+                
+                self.starshipArray.noDuplicates()
+                completion(self.starshipArray)
             }
             task.resume()
         }
