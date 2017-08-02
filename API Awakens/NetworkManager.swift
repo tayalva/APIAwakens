@@ -56,16 +56,24 @@ class NetworkManager {
 
             self.peopleArray += people
             self.pageIndex += 1
-             if nextPage != nil {
+            
+            
+            
+            if nextPage != nil {
             
                 self.fetchPerson(completion: completion)
                 
                 
-             } else { self.pageIndex = 1 }
+             } else {
+        
+            self.pageIndex = 1
             
             self.peopleArray.noDuplicates()
-            completion(self.peopleArray)
+                
+                completion(self.peopleArray)
+                }
 
+            
     }
         
         task.resume()
