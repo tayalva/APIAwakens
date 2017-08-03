@@ -44,18 +44,18 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+     
         
         removeArrayElements()
         networkRequest() { allDone in
             
             if allDone {
-                self.loadingIndicator.isHidden = true
-                self.loadingIndicator.stopAnimating()
-                print(self.starshipArray.count)
+              
                 print("all done!")
                 self.smallest()
                 self.largest()
+                
+     
                 
             }
             
@@ -249,6 +249,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
                     self.displayInfo()
+                    self.loadingIndicator.isHidden = true
                 }
                 self.networkCall.fetchPlanet {fetchedPlanet in
                     OperationQueue.main.addOperation {
@@ -278,6 +279,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
                 self.displayInfo()
+                    self.loadingIndicator.isHidden = true
                      }
             completionHandler(true)
             }
@@ -305,6 +307,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
                     self.displayInfo()
+                    self.loadingIndicator.isHidden = true
                     
                 }
             
@@ -317,6 +320,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
    
     }
+        
     
         
 
@@ -391,6 +395,9 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             
             
         }
+        
+        self.loadingIndicator.isHidden = true
+        self.loadingIndicator.stopAnimating()
         
     }
 
