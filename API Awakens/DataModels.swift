@@ -40,3 +40,12 @@ extension Array where Element: Equatable {
     
 }
 
+
+extension String {
+    func removeFormatting() -> Double? {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.autoupdatingCurrent
+        formatter.numberStyle = .decimal
+        return formatter.number(from: self) as? Double
+    }
+}

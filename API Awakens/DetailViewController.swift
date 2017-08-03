@@ -35,7 +35,6 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
      var starshipNames: [String] = []
      var vehicleNames: [String] = []
      var indexOfSelection: Int = 0
-    var indexOfSmallest: Int = 0
      var personArray: [Person] = []
      var vehicleArray: [Vehicle] = []
      var starshipArray: [Starship] = []
@@ -47,14 +46,14 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         super.viewDidLoad()
         
         
-        namesArray.removeAll()
+        removeArrayElements()
         networkRequest() { allDone in
             
             if allDone {
                 self.loadingIndicator.isHidden = true
                 self.loadingIndicator.stopAnimating()
-                
-                print("All done!")
+                print(self.starshipArray.count)
+                print("all done!")
                 self.smallest()
                 self.largest()
                 
@@ -70,40 +69,84 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     func smallest() {
         
-        for size in self.personArray {
+        switch selectedCategory {
             
+        case .people:
+        
+        for size in self.personArray {
             self.sizeArray.append(size.height)
         }
-        
+
         var newArray: [String] = []
-        
         for replace in self.sizeArray {
-            
             let newWord = replace.replacingOccurrences(of: "unknown", with: "9999999999")
             newArray.append(newWord)
+           
         }
-        print(newArray)
-        
         let arrayInts = newArray.map {Int($0)!}
-        
-        
         let smallest = arrayInts.min()
         let index = arrayInts.index(of: smallest!)
-        let smallestPerson = self.personArray[index!].name
-        print(smallestPerson)
-        
-        print(self.personArray)
-        OperationQueue.main.addOperation {
+        let smallestObject = self.personArray[index!].name
             
-            self.smallestLabel.text = "\(smallestPerson)"
-        }
-        
-    }
+        OperationQueue.main.addOperation {
+            self.smallestLabel.text = smallestObject
+            }
+            
+        case .starships:
+            
+            for size in self.starshipArray {
+                self.sizeArray.append(size.length)
+            }
+            
+            var newArray: [String] = []
+            for replace in self.sizeArray {
+                let newWord = replace.replacingOccurrences(of: "unknown", with: "9999999999")
+                newArray.append(newWord)
+                
+            }
+            
+            let formattedArray = newArray.map {$0.removeFormatting()!}
+            
     
+            print(formattedArray)
+           
+            let smallest = formattedArray.min()
+           let index = formattedArray.index(of: smallest!)
+            let smallestObject = self.starshipArray[index!].name
+            
+            OperationQueue.main.addOperation {
+                self.smallestLabel.text = smallestObject
+            }
+            
+        case .vehicles:
+            
+                for size in self.vehicleArray {
+                    self.sizeArray.append(size.length)
+                }
+                
+                var newArray: [String] = []
+                for replace in self.sizeArray {
+                    let newWord = replace.replacingOccurrences(of: "unknown", with: "9999999999")
+                    newArray.append(newWord)
+                }
+                let arrayDouble = newArray.map {Double($0)!}
+                let smallest = arrayDouble.min()
+                let index = arrayDouble.index(of: smallest!)
+                let smallestObject = self.vehicleArray[index!].name
+                
+                OperationQueue.main.addOperation {
+                    self.smallestLabel.text = smallestObject
+            }
+
+  
+    }
+    }
     
     func largest() {
         
-        
+        switch selectedCategory {
+            
+        case .people:
         
         for size in personArray {
             
@@ -117,20 +160,68 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             let newWord = replace.replacingOccurrences(of: "unknown", with: "0")
             newArray.append(newWord)
         }
-        print(newArray)
-        
         let arrayInts = newArray.map {Int($0)!}
-        
-        
         let largest = arrayInts.max()
         let index = arrayInts.index(of: largest!)
         let largestPerson = self.personArray[index!].name
-        print(largestPerson)
-        
-        print(self.personArray)
         OperationQueue.main.addOperation {
             
             self.largestLabel.text = largestPerson
+        }
+            
+        case .starships:
+            
+            for size in starshipArray {
+                
+                sizeArray.append(size.length)
+            }
+            
+            var newArray: [String] = []
+            
+            for replace in self.sizeArray {
+                
+                let newWord = replace.replacingOccurrences(of: "unknown", with: "0")
+                newArray.append(newWord)
+            }
+            
+            let formattedArray = newArray.map {$0.removeFormatting()!}
+            let largest = formattedArray.max()
+            let index = formattedArray.index(of: largest!)
+            let largestObject = self.starshipArray[index!].name
+    
+            OperationQueue.main.addOperation {
+                
+                self.largestLabel.text = largestObject
+            }
+            
+        case .vehicles:
+            
+            for size in vehicleArray {
+                
+                sizeArray.append(size.length)
+            }
+            
+            var newArray: [String] = []
+            
+            for replace in self.sizeArray {
+                
+                let newWord = replace.replacingOccurrences(of: "unknown", with: "0")
+                newArray.append(newWord)
+            }
+            let arrayInts = newArray.map {Double($0)!}
+            let largest = arrayInts.max()
+            let index = arrayInts.index(of: largest!)
+        print(index)
+            print(self.vehicleArray.count)
+            let largestObject = self.vehicleArray[index!].name
+            
+            OperationQueue.main.addOperation {
+                
+                self.largestLabel.text = largestObject
+            }
+            
+            
+            
         }
     }
 
@@ -146,86 +237,50 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         case .people:
            
             vehicleStarshipView.isHidden = true
-            
-          
             networkCall.fetchPerson { fetchedInfo in
-           
               self.personArray = fetchedInfo
-                
                let names = fetchedInfo
                let person = fetchedInfo[self.indexOfSelection]
-                
-                print(names.count)
-                
-            
                 homePlanetURL = person.home
-                
                 OperationQueue.main.addOperation {
-                    
                     for person in names {
-                        
                         self.namesArray.append(person.name)
-                        
                     }
-                    
                     self.namesArray.noDuplicates()
-                    
                     self.pickerWheel.reloadAllComponents()
-                    
                     self.displayInfo()
-                 
-            
-   
                 }
                 self.networkCall.fetchPlanet {fetchedPlanet in
-                    
-                    
                     OperationQueue.main.addOperation {
                         self.line2Label.text = fetchedPlanet.name
-                        
-                        
-                        
                     }
-                    
-                    
                     completionHandler(true)
+                    
                 }
                 
-            
+       
             }
             
-            print(personArray.count)
+          
         
   
     
         case .starships:
         
-                 vehicleStarshipView.isHidden = false
-            
+                vehicleStarshipView.isHidden = false
             networkCall.fetchStarship { fetchedInfo in
-                
                 self.starshipArray = fetchedInfo
-                
                 let names = fetchedInfo
-                let starship = fetchedInfo[self.indexOfSelection]
-                
                 OperationQueue.main.addOperation {
-                  
                     for starship in names {
-                        
                         self.namesArray.append(starship.name)
-                    
                     }
                     self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
-                    self.nameLabel.text = starship.name
-                    self.line1Label.text = starship.make
-                    self.line2Label.text = starship.cost
-                    self.line3Label.text = starship.length
-                    self.line4Label.text = starship.starshipClass
-                    self.line5Label.text = starship.crew
-                    
-                     } }
+                self.displayInfo()
+                     }
+            completionHandler(true)
+            }
             
         
             
@@ -238,7 +293,6 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                 self.vehicleArray = fetchedInfo
                 
                 let names = fetchedInfo
-                let vehicle = fetchedInfo[self.indexOfSelection]
                 
                 OperationQueue.main.addOperation {
                  
@@ -246,19 +300,21 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                         
                         self.namesArray.append(vehicle.name)
                     }
+                   
+                    
                     self.namesArray.noDuplicates()
                     self.pickerWheel.reloadAllComponents()
-                    self.nameLabel.text = vehicle.name
-                    self.line1Label.text = vehicle.make
-                    self.line2Label.text = vehicle.cost
-                    self.line3Label.text = vehicle.length
-                    self.line4Label.text = vehicle.vehicleClass
-                    self.line5Label.text = vehicle.crew
+                    self.displayInfo()
                     
-                   } }
+                }
+            
+             
+            completionHandler(true)
+                    
+            
+            }
  
 
-        
    
     }
     
@@ -369,7 +425,14 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
      
     }
     
-
+    func removeArrayElements() {
+        
+        namesArray.removeAll()
+        starshipArray.removeAll()
+        personArray.removeAll()
+        vehicleArray.removeAll()
+        sizeArray.removeAll()
+    }
     
 
 }

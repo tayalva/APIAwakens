@@ -121,7 +121,7 @@ class NetworkManager {
 /////////////////////
         
     func fetchVehicle(completion: @escaping ([Vehicle]) -> Void) {
-            print(url)
+        
             let task = URLSession.shared.dataTask(with: url) { (data,
                 response, error) in
                 guard let data = data,
@@ -139,13 +139,19 @@ class NetworkManager {
                 if nextPage != nil {
                     
                     self.fetchVehicle(completion: completion)
-                } else { self.pageIndex = 1 }
+                } else {
+                    
+                    
+                    self.pageIndex = 1
                 
-                self.vehicleArray.noDuplicates()
+                    self.vehicleArray.noDuplicates()
                 
-        
-                completion(self.vehicleArray)
+                    completion(self.vehicleArray)
+                    
+                }
+                
             }
+        
         task.resume()
       
     }
@@ -153,7 +159,7 @@ class NetworkManager {
         
         
         func fetchStarship(completion: @escaping ([Starship]) -> Void) {
-            print(url)
+           print(url)
             let task = URLSession.shared.dataTask(with: url) { (data,
                 response, error) in
                 guard let data = data,
@@ -171,10 +177,15 @@ class NetworkManager {
                     
                     self.fetchStarship(completion: completion)
                     
-                }else { self.pageIndex = 1 }
+                }else {
+                    
+                    self.pageIndex = 1
                 
                 self.starshipArray.noDuplicates()
+                  
                 completion(self.starshipArray)
+                    
+                }
             }
             task.resume()
         }
