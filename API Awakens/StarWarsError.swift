@@ -8,7 +8,9 @@
 
 import Foundation
 
-enum Errors: Error {
+enum StarWarsError: Error {
     
     case invalidDataError
+    case networkError
+    case noPlanet
 }

@@ -61,7 +61,6 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             
             if allDone {
               
-                print("all done!")
                 self.smallest()
                 self.largest()
       
@@ -142,7 +141,15 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             vehicleStarshipView.isHidden = true
             usdButton.isHidden = true
             creditsButton.isHidden = true
-            networkCall.fetchPerson { fetchedInfo in
+            networkCall.fetchPerson { (fetchedInfo, error) in
+                
+                if let error = error {
+                    
+                    self.displayAlert("Whoops!", andMessage: "Where's your internet? Please check your connection! Click the back button and try again")
+                }else {
+                    
+                    if let fetchedInfo = fetchedInfo {
+                
               self.personArray = fetchedInfo
                let names = fetchedInfo
                let person = fetchedInfo[self.indexOfSelection]
@@ -156,19 +163,12 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.displayInfo()
                     self.loadingIndicator.isHidden = true
                 }
-                self.networkCall.fetchPlanet {fetchedPlanet in
-                    OperationQueue.main.addOperation {
-                        self.line2Label.text = fetchedPlanet.name
-                    }
-                    
-                    
-                  
-                   
-                }
-                
+                        self.fetchPlanet()
   
                 
                 completionHandler(true)
+                    }
+                }
             }
 
         case .starships:
@@ -176,7 +176,17 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             usdButton.isHidden = false
             creditsButton.isHidden = false
                 vehicleStarshipView.isHidden = false
-            networkCall.fetchStarship { fetchedInfo in
+            networkCall.fetchStarship { (fetchedInfo, error) in
+                
+                if let error = error {
+                    
+                    self.displayAlert("Whoops!", andMessage: "Where's your internet? Please check your connection! Click the back button and try again")
+                    
+                    print("display home page")
+                }else {
+                    
+                    if let fetchedInfo = fetchedInfo {
+                        
                 self.starshipArray = fetchedInfo
                 let names = fetchedInfo
                 OperationQueue.main.addOperation {
@@ -189,6 +199,9 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.loadingIndicator.isHidden = true
                      }
             completionHandler(true)
+                        
+                    }
+                }
             }
             
         
@@ -198,7 +211,18 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             usdButton.isHidden = false
             creditsButton.isHidden = false
              vehicleStarshipView.isHidden = false
-             networkCall.fetchVehicle { fetchedInfo in
+             networkCall.fetchVehicle { (fetchedInfo, error) in
+                
+                if let error = error {
+                    
+                    self.displayAlert("Whoops!", andMessage: "Where's your internet? Please check your connection! Click the back button and try again")
+                    
+                    
+                }else {
+                    
+                    if let fetchedInfo = fetchedInfo {
+                
+                
                 self.vehicleArray = fetchedInfo
                 let names = fetchedInfo
                 OperationQueue.main.addOperation {
@@ -211,6 +235,8 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.loadingIndicator.isHidden = true
                 }
             completionHandler(true)
+                    }
+                    }
             }
     }
 
@@ -220,9 +246,25 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func fetchPlanet() {
         
         homePlanetURL = personArray[indexOfSelection].home
-        networkCall.fetchPlanet {fetchedPlanet in
+        networkCall.fetchPlanet {(fetchedPlanet, error) in
+            
+            if let error = error {
+                
+                OperationQueue.main.addOperation {
+
+                self.line2Label.text = "Could not find planet"
+                }
+                
+            } else {
+            
+            if let fetchedPlanet = fetchedPlanet {
+            
             OperationQueue.main.addOperation {
                 self.line2Label.text = fetchedPlanet.name
+            }
+                
+            }
+                
             }
         }
 }
@@ -247,7 +289,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             
             self.vehicleLabel.text = vehicleArray.joined(separator: ", ")
             
-            print(fetchedVehicle)
+            
             
             
         }
@@ -263,19 +305,25 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             
             var starshipArray: [String] = []
             
-            
+            if let fetchedStarship = fetchedStarship {
             for x in fetchedStarship {
                 
                 starshipArray.append(x.name)
                 
             }
+            }
             
             OperationQueue.main.addOperation {
                 
+                if fetchedStarship == nil {
+                    
+                    self.starshipLabel.text = "Could not find starships"
+                    
+                } else {
                 self.starshipLabel.text = starshipArray.joined(separator: ", ")
                 
-                print(fetchedStarship)
-                
+            }
+            
                 
             }
             
@@ -556,6 +604,15 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
     }
 
-    
+    func displayAlert(_ title: String, andMessage message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+
 
 }

@@ -69,7 +69,7 @@ class NetworkManager {
     
 ///////////////////
 
-    func fetchPerson(completion: @escaping ([Person]) -> Void) {
+    func fetchPerson(completion: @escaping ([Person]?, StarWarsError?) -> Void) {
         
        
         
@@ -78,7 +78,8 @@ class NetworkManager {
         guard let data = data,
             let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
             let json = rawJSON as? [String: AnyObject] else {
-                print("error! no json for person")
+             
+                completion(nil, .networkError)
                 return }
         
            let nextPage = json["next"] as? String
@@ -88,7 +89,7 @@ class NetworkManager {
             
             
         let people = results.flatMap { Person(json: $0) }
-            print(people)
+    
             self.peopleArray += people
             self.pageIndex += 1
             
@@ -105,7 +106,7 @@ class NetworkManager {
             
             self.peopleArray.noDuplicates()
                 
-                completion(self.peopleArray)
+                completion(self.peopleArray, nil)
                 }
 
             
@@ -119,10 +120,11 @@ class NetworkManager {
     }
     
     
-    func fetchPlanet(completion: @escaping (Planet) -> Void) {
+    func fetchPlanet(completion: @escaping (Planet?, StarWarsError?) -> Void) {
         
         guard let url = URL(string: homePlanetURL) else {
-        print("no planet!!!")
+        
+            completion(nil, .noPlanet)
             return
         
         }
@@ -138,11 +140,13 @@ class NetworkManager {
                 
                 let planet = Planet(json: json) {
                 
-                completion(planet)
+                completion(planet, nil)
                 
             } else {
                 
                 print("Either no data was returned, or data was not serialized.")
+                
+                completion(nil, .noPlanet)
                 
             
             }
@@ -155,14 +159,14 @@ class NetworkManager {
 
 /////////////////////
         
-    func fetchVehicle(completion: @escaping ([Vehicle]) -> Void) {
+    func fetchVehicle(completion: @escaping ([Vehicle]?, StarWarsError?) -> Void) {
         
             let task = URLSession.shared.dataTask(with: url) { (data,
                 response, error) in
                 guard let data = data,
                     let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
                     let json = rawJSON as? [String: AnyObject] else {
-                        print("error!")
+                        completion(nil, .networkError)
                         return }
                 let nextPage = json["next"] as? String
                 guard let results = json["results"] as? [[String: Any]] else { fatalError() }
@@ -181,7 +185,7 @@ class NetworkManager {
                 
                     self.vehicleArray.noDuplicates()
                 
-                    completion(self.vehicleArray)
+                    completion(self.vehicleArray, nil)
                     
                 }
                 
@@ -193,13 +197,13 @@ class NetworkManager {
  /////////////////////////
         
         
-        func fetchStarship(completion: @escaping ([Starship]) -> Void) {
+        func fetchStarship(completion: @escaping ([Starship]?, StarWarsError?) -> Void) {
             let task = URLSession.shared.dataTask(with: url) { (data,
                 response, error) in
                 guard let data = data,
                     let rawJSON = try? JSONSerialization.jsonObject(with: data, options: []),
                     let json = rawJSON as? [String: AnyObject] else {
-                        print("error!")
+                        completion(nil, .networkError)
                         return }
                 let nextPage = json["next"] as? String
                 guard let results = json["results"] as? [[String: Any]] else { fatalError() }
@@ -217,7 +221,7 @@ class NetworkManager {
                 
                 self.starshipArray.noDuplicates()
                   
-                completion(self.starshipArray)
+                completion(self.starshipArray, nil)
                     
                 }
             }
@@ -258,7 +262,7 @@ class NetworkManager {
         
     }
     
-    func fetchPersonStarships(completion: @escaping ([Starship]) -> Void) {
+    func fetchPersonStarships(completion: @escaping ([Starship]?) -> Void) {
         guard let url = URL(string: starshipUrlArray[itemCountStarships]) else {
             print("no vehicle association")
             return
