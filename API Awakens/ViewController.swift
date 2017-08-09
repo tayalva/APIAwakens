@@ -16,8 +16,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
+
+ 
+// this simply changes the color of the nav bar at the top
         navigationController?.navigationBar.barTintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
      
         
@@ -26,6 +27,9 @@ class ViewController: UIViewController {
         
     }
 
+    
+// this switches on an enum for each category so that I can successfully determine what code to execute depending on the type selected
+    
     @IBAction func CategoryButtons(_ sender: UIButton) {
         
         

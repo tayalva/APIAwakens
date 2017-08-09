@@ -57,6 +57,10 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
      
         
         removeArrayElements()
+        
+        
+ // initial network request with a completion handler that determines the smallest/largest objects
+        
         networkRequest() { allDone in
             
             if allDone {
@@ -70,7 +74,9 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
 
     }
-
+// methods for the conversion buttons for metric/english and USD/Credits
+    
+    
     @IBAction func conversionButtons(_ sender: UIButton) {
         
         switch sender.tag {
@@ -129,7 +135,7 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     
     
-// Updates Labels with the appropriate information
+// this method calls the network requests for each category
     
     func networkRequest(completionHandler: @escaping (Bool) -> Void) {
 
@@ -270,6 +276,8 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 }
     
     
+// these next two methods make the network call for the associated vehicles/starships 
+    
     
     func fetchAssociatedVehicles() {
         
@@ -330,6 +338,10 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
         
     }
+    
+    
+// This method actually displays/populates the labels. this is called every time the clicker wheel changes
+    
     func displayInfo() {
         
         switch selectedCategory {
@@ -439,9 +451,8 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
 
 
-    // PickerView Helper Methods
+// PickerView Helper Methods
     
-  
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -462,6 +473,9 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
           displayInfo()
 
     }
+
+    
+ // simple method to remove elements from my arrays
     
     func removeArrayElements() {
         
@@ -471,6 +485,8 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         vehicleArray.removeAll()
         sizeArray.removeAll()
     }
+// these next two determine the largest and smallest objects
+    
     
     func smallest() {
         
@@ -603,7 +619,10 @@ class DetailViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             }
         }
     }
-
+    
+    
+// method to show alerts
+    
     func displayAlert(_ title: String, andMessage message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         

@@ -23,6 +23,8 @@ class NetworkManager {
     var associatedVehiclesArray: [Vehicle] = []
     var associatedStarshipsArray: [Starship] = []
     
+// computed url that takes a pageIndex so that it can iterate through the pages of the data
+    
     var url: URL {
         
         switch selectedCategory {
@@ -35,6 +37,8 @@ class NetworkManager {
      
     }
     
+ 
+// these two arrays are populated with the url's from associated vehicles/starships for each person
     
     var vehicleUrlArray: [String] = []
     
@@ -67,7 +71,7 @@ class NetworkManager {
     }
     
     
-///////////////////
+// each function is for each network call for person, vehicle, starship, planet, and associated vehicles/planets
 
     func fetchPerson(completion: @escaping ([Person]?, StarWarsError?) -> Void) {
         
