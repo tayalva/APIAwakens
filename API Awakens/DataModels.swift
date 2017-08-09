@@ -49,3 +49,29 @@ extension String {
         return formatter.number(from: self) as? Double
     }
 }
+
+extension Int {
+    
+    func toUSD(conversionRate rate: Double) -> Double {
+        let x = Double(self)/rate
+        let divisor = pow(10.0, Double(2))
+        return round(x * divisor) / divisor
+    }
+}
+
+extension Double {
+    
+    mutating func toFeetFromCm() -> Double {
+        let x = Double(self) / 30.48
+        let divisor = pow(10.0, Double(2))
+        
+        return Darwin.round(x * divisor) / divisor
+    }
+    
+    mutating func toFeetFromMeter() -> Double {
+        let x = Double(self) * 3.28084
+        let divisor = pow(10.0, Double(2))
+        
+        return Darwin.round(x * divisor) / divisor 
+    }
+}

@@ -14,12 +14,14 @@ class NetworkManager {
     
     
     var jsonResults = [""]
-    var isNextPage = true
     var pageIndex = 1
-    var itemCount = 1
+    var itemCount = 0
+    var itemCountStarships = 0
     var peopleArray: [Person] = []
     var vehicleArray: [Vehicle] = []
     var starshipArray: [Starship] = []
+    var associatedVehiclesArray: [Vehicle] = []
+    var associatedStarshipsArray: [Starship] = []
     
     var url: URL {
         
@@ -32,6 +34,38 @@ class NetworkManager {
         }
      
     }
+    
+    
+    var vehicleUrlArray: [String] = []
+    
+    var vehicleUrl: String {
+        
+        var result: String = ""
+        for x in vehicleUrlArray {
+            
+            result = x
+            
+        }
+        
+       return result
+        
+    }
+    
+    var starshipUrlArray: [String] = []
+    
+    var starshipUrl: String {
+        
+        var result: String = ""
+        for x in starshipUrlArray {
+            
+            result = x
+            
+        }
+        
+        return result
+        
+    }
+    
     
 ///////////////////
 
@@ -52,8 +86,9 @@ class NetworkManager {
             print("no results to show")
             return }
             
+            
         let people = results.flatMap { Person(json: $0) }
-
+            print(people)
             self.peopleArray += people
             self.pageIndex += 1
             
@@ -159,7 +194,6 @@ class NetworkManager {
         
         
         func fetchStarship(completion: @escaping ([Starship]) -> Void) {
-           print(url)
             let task = URLSession.shared.dataTask(with: url) { (data,
                 response, error) in
                 guard let data = data,
@@ -189,6 +223,73 @@ class NetworkManager {
             }
             task.resume()
         }
+    
+    
+    func fetchPersonVehicles(completion: @escaping ([Vehicle]) -> Void) {
+        guard let url = URL(string: vehicleUrlArray[itemCount]) else {
+            print("no vehicle association")
+            return
+            
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data,
+                let rawJson = try? JSONSerialization.jsonObject(with: data),
+                let json = rawJson as? [String: AnyObject],
+                let vehicle = Vehicle(json: json) else {
+                
+                print("Either no data was returned, or data was not serialized.")
+                    return
+            }
+            self.associatedVehiclesArray += [vehicle]
+            self.itemCount -= 1
+            if self.itemCount != -1 {
+                
+                self.fetchPersonVehicles(completion: completion)
+            } else {
+                
+              
+                completion(self.associatedVehiclesArray)
+            }
+        
+        }
+        
+          task.resume()
+        
+    }
+    
+    func fetchPersonStarships(completion: @escaping ([Starship]) -> Void) {
+        guard let url = URL(string: starshipUrlArray[itemCountStarships]) else {
+            print("no vehicle association")
+            return
+            
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data,
+                let rawJson = try? JSONSerialization.jsonObject(with: data),
+                let json = rawJson as? [String: AnyObject],
+                let starship = Starship(json: json) else {
+                    
+                    print("Either no data was returned, or data was not serialized.")
+                    return
+            }
+            self.associatedStarshipsArray += [starship]
+            self.itemCountStarships -= 1
+            if self.itemCountStarships != -1 {
+                
+                self.fetchPersonStarships(completion: completion)
+            } else {
+                
+                
+                completion(self.associatedStarshipsArray)
+            }
+            
+        }
+        
+        task.resume()
+        
+    }
         
 
 
